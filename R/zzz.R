@@ -1,0 +1,11 @@
+globalVariables(c(".", ".id", "_id", "circunscricao",
+                  "circunscricao_judiciaria",
+                  "cod_imovel", "cod_municipio",
+                  "codigo", "comarca", "contato_administrativo",
+                  "dados_gerais", "data", "descricao",
+                  "entrancia", "key",
+                  "localizacao", "municipio", "nm_municip",
+                  "num_circunscricao",
+                  "num_regiao", "regiao", "regioes", "tipo",
+                  "titulo", "txt_comarca",
+                  "uf", "unzip", "val"))

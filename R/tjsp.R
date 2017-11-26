@@ -34,11 +34,9 @@ get_all_muni <- function() {
 get_muni_codes <- function() {
   all_muni <- get_all_muni()
   u_muni <- "http://www.tjsp.jus.br/AutoComplete/ListarMunicipios"
-  all_muni %T>%
-  {.p <<- progress::progress_bar$new(total = length(.))} %>%
+  all_muni %>%
     purrr::map_dfr(~{
       r1 <- httr::POST(u_muni, body = list(texto = .x))
-      .p$tick()
       httr::content(r1, "parsed") %>%
         purrr::map_dfr(tibble::as_tibble) %>%
         dplyr::mutate(query = .x) %>%
@@ -59,11 +57,9 @@ get_muni_codes <- function() {
 #' @export
 get_comarca_text <- function(cod_municipio) {
   u_resultado <- "http://www.tjsp.jus.br/ListaTelefonica/RetornarResultadoBusca"
-  .p <- progress::progress_bar$new(total = length(cod_municipio))
   purrr::map_chr(cod_municipio, ~{
     bd <- list(parmsEntrada = .x, codigoTipoBusca = "1")
     r0 <- httr::POST(u_resultado, body = bd)
-    .p$tick()
     h4 <- r0 %>%
       httr::content("parsed") %>%
       rvest::html_nodes("h4") %>%
@@ -115,14 +111,12 @@ parse_imovel_result_info <- function(html) {
 
 get_imoveis <- function(cod_municipio) {
   u_imoveis <- "http://www.tjsp.jus.br/ListaTelefonica/ObterImoveisPorMunicipio"
-  .p <- progress::progress_bar$new(total = length(cod_municipio))
   cod_municipio %>%
     purrr::set_names(.) %>%
     purrr::map_dfr(~{
       cod <- as.character(.x)
       r0 <- httr::GET(u_imoveis, query = list(codigo = cod))
       # r0 %>% scrapr::html_view()
-      .p$tick()
       html <- httr::content(r0, "parsed")
       npag <- html %>%
         rvest::html_nodes(".pages") %>%
@@ -175,13 +169,11 @@ parse_imovel <- function(html) {
 
 download_imoveis <- function(cod_imovel) {
   u_imovel <- "http://www.tjsp.jus.br/ListaTelefonica/ObterImovel"
-  .p <- progress::progress_bar$new(total = length(cod_imovel))
   cod_imovel %>%
     purrr::set_names(.) %>%
     purrr::map_dfr(~{
       r <- httr::POST(u_imovel, body = list(codigo = .x))
       # scrapr::html_view(r)
-      .p$tick()
       httr::content(r, "parsed") %>%
         parse_imovel()
     }, .id = "cod_imovel")
@@ -236,10 +228,10 @@ get_adm_regions <- function() {
         stringr::str_trim() %>%
         tibble::enframe() %>%
         tidyr::separate(value, c("comarca", "num_circunscricao"),
-                        sep = " [-–] ") %>%
+                        sep = " [-\u2013] ") %>%
         dplyr::mutate(regiao = nm)
     }) %>%
-    tidyr::separate(regiao, c("num_regiao", "regiao"), sep = " [-–] ") %>%
+    tidyr::separate(regiao, c("num_regiao", "regiao"), sep = " [-\u2013] ") %>%
     dplyr::select(comarca, num_circunscricao, num_regiao, regiao) %>%
     dplyr::mutate(
       comarca = abjutils::rm_accent(stringr::str_to_upper(comarca)),
@@ -260,8 +252,8 @@ completar_comarcas <- function(imoveis_tidy, imoveis_list, muni_com_comarca) {
     dplyr::select(cod_municipio, circunscricao = circunscricao_judiciaria,
                   entrancia) %>%
     # a unica entrancia nao informada é SP
-    dplyr::mutate(entrancia = dplyr::if_else(entrancia == "Não Informado",
-                                             "Entrância Final", entrancia)) %>%
+    dplyr::mutate(entrancia = dplyr::if_else(entrancia == "N\u00e3o Informado",
+                                             "Entr\u00e2ncia Final", entrancia)) %>%
     dplyr::mutate(cod_municipio = as.integer(cod_municipio)) %>%
     dplyr::distinct(cod_municipio, .keep_all = TRUE)
   muni_com_comarca %>%
@@ -281,7 +273,7 @@ build_sf <- function(muni_comarcas_completo) {
     message("Downloading shapefiles...")
     httr::GET(u_ibge, httr::write_disk("shp/sp.zip", overwrite = TRUE),
               httr::progress())
-    unzip("shp/sp.zip", exdir = "shp/")
+    utils::unzip("shp/sp.zip", exdir = "shp/")
   }
   # carregar shp municipios
   d_sf_municipio <- "shp/35MUE250GC_SIR.shp" %>%

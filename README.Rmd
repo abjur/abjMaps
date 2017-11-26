@@ -1,0 +1,46 @@
+---
+output: github_document
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# abjMaps
+
+The goal of abjMaps is to make beautiful jurimetrics maps using simple features (`sf` package). 
+
+Actually, only Tribunal de Justiça de São Paulo is implemented. Look at the `data-raw/comarcas_tjsp.R` file do see how we organized the data.
+
+## Installation
+
+You can install abjMaps from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("abjur/abjMaps")
+```
+
+## Example
+
+```{r example}
+library(abjMaps)
+library(tidyverse)
+d_sf
+```
+
+```{r}
+graphs <- purrr::pmap(d_sf, ~{
+  ggplot(..2) +        
+    geom_sf() +       
+    ggtitle(..1) +     
+    theme_minimal() 
+})
+gridExtra::grid.arrange(grobs = graphs)
+```
+
