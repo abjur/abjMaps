@@ -16,7 +16,7 @@ addons:
       - libtesseract-dev
       - libleptonica-dev
       - tesseract-ocr-eng
-      - r-cran-rgdal
+      - r-cran-xml
       - libfftw3-dev
       - libgdal-dev
       - libgeos-dev
