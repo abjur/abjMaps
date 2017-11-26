@@ -26,6 +26,6 @@ addons:
 
 # Prevents Travis timeout for building
 before_install:
-  - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+  - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
   - sudo apt-get update
   - (while true; do echo 'Ping? Pong!'; sleep 500; done) &
