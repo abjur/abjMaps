@@ -2,6 +2,8 @@
 output: github_document
 ---
 
+[![Travis-CI Build Status](https://travis-ci.org/abjur/abjMaps.svg?branch=master)](https://travis-ci.org/abjur/abjMaps)
+
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -34,7 +36,7 @@ library(tidyverse)
 d_sf
 ```
 
-```{r}
+```{r fig}
 graphs <- purrr::pmap(d_sf, ~{
   ggplot(..2) +        
     geom_sf() +       
