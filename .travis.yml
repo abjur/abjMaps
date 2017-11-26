@@ -8,7 +8,6 @@ addons:
   apt:
     sources:
       - sourceline: 'ppa:opencpu/imdev'
-      - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
     packages:
       - libmagick++-dev
       - librsvg2-dev
