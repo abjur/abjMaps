@@ -53,3 +53,22 @@ gridExtra::grid.arrange(grobs = graphs)
 ```
 
 ![](README-fig-1.png)
+
+Citation
+--------
+
+To cite `abjMaps`, write `citation("abjMaps")`:
+
+    To cite package ‘abjMaps’ in publications use:
+
+      Julio Trecenti and Fernando Correa (2017). abjMaps: Organizing Data To Create
+      Jurimetric Maps. R package version 0.1.9000.
+
+    A BibTeX entry for LaTeX users is
+
+      @Manual{,
+        title = {abjMaps: Organizing Data To Create Jurimetric Maps},
+        author = {Julio Trecenti and Fernando Correa},
+        year = {2017},
+        note = {R package version 0.1.9000},
+      }
