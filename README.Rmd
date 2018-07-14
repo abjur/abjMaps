@@ -30,13 +30,15 @@ devtools::install_github("abjur/abjMaps")
 
 ## Example
 
+TJSP:
+
 ```{r example}
 library(abjMaps)
 library(tidyverse)
 d_sf
 ```
 
-```{r fig}
+```{r fig-tjsp}
 graphs <- purrr::pmap(d_sf, ~{
   ggplot(..2) +        
     geom_sf() +       
@@ -45,6 +47,19 @@ graphs <- purrr::pmap(d_sf, ~{
 })
 gridExtra::grid.arrange(grobs = graphs)
 ```
+
+TJRS:
+
+```{r fig-tjrs}
+graphs <- purrr::pmap(d_sf_tjrs, ~{
+  ggplot(..2) +        
+    geom_sf(aes(fill = entrancia)) +       
+    ggtitle(..1) +     
+    theme_minimal() 
+})
+gridExtra::grid.arrange(grobs = graphs, nrow = 1)
+```
+
 
 ## Citation
 

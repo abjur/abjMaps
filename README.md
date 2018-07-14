@@ -21,25 +21,27 @@ devtools::install_github("abjur/abjMaps")
 Example
 -------
 
+TJSP:
+
 ``` r
 library(abjMaps)
 library(tidyverse)
-#> ── Attaching packages ────────────────────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 2.2.1.9000     ✔ purrr   0.2.4.9000
-#> ✔ tibble  1.3.4          ✔ dplyr   0.7.4     
-#> ✔ tidyr   0.7.2          ✔ stringr 1.2.0     
-#> ✔ readr   1.1.1          ✔ forcats 0.2.0
-#> ── Conflicts ───────────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 2.2.1.9000     ✔ purrr   0.2.5     
+#> ✔ tibble  1.4.2          ✔ dplyr   0.7.6     
+#> ✔ tidyr   0.8.1          ✔ stringr 1.3.1     
+#> ✔ readr   1.1.1          ✔ forcats 0.3.0
+#> ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 d_sf
 #> # A tibble: 4 x 2
-#>           nivel                 sf
-#>           <chr>             <list>
-#> 1     municipio    <sf [645 x 12]>
-#> 2       comarca <tibble [319 x 3]>
-#> 3 circunscricao  <tibble [57 x 2]>
-#> 4        regiao  <tibble [10 x 2]>
+#>   nivel         sf                
+#>   <chr>         <list>            
+#> 1 municipio     <sf [645 × 12]>   
+#> 2 comarca       <tibble [319 × 3]>
+#> 3 circunscricao <tibble [57 × 2]> 
+#> 4 regiao        <tibble [10 × 2]>
 ```
 
 ``` r
@@ -52,7 +54,21 @@ graphs <- purrr::pmap(d_sf, ~{
 gridExtra::grid.arrange(grobs = graphs)
 ```
 
-![](README-fig-1.png)
+![](README-fig-tjsp-1.png)
+
+TJRS:
+
+``` r
+graphs <- purrr::pmap(d_sf_tjrs, ~{
+  ggplot(..2) +        
+    geom_sf(aes(fill = entrancia)) +       
+    ggtitle(..1) +     
+    theme_minimal() 
+})
+gridExtra::grid.arrange(grobs = graphs, ncol = 1)
+```
+
+![](README-fig-tjrs-1.png)
 
 Citation
 --------

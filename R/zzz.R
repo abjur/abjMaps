@@ -8,4 +8,4 @@ globalVariables(c(".", ".id", "_id", "circunscricao",
                   "num_circunscricao",
                   "num_regiao", "regiao", "regioes", "tipo",
                   "titulo", "txt_comarca",
-                  "uf", "unzip", "val"))
+                  "uf", "unzip", "val", "V2", "V3", "cod"))

@@ -262,7 +262,7 @@ completar_comarcas <- function(imoveis_tidy, imoveis_list, muni_com_comarca) {
     dplyr::arrange(comarca, tipo)
 }
 
-build_sf <- function(muni_comarcas_completo) {
+build_sf_tjsp <- function(muni_comarcas_completo) {
   if (!file.exists("shp")) {
     dir.create("shp", showWarnings = FALSE)
     u_ibge <- paste0(

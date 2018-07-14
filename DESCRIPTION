@@ -15,7 +15,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 BugReports: https://github.com/abjur/abjMaps/issues
-Remotes: 
+Remotes:
     abjur/abjData
 Imports: magrittr,
     tidyverse,
@@ -31,4 +31,5 @@ Imports: magrittr,
     httr,
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    xml2
