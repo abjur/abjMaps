@@ -1,12 +1,23 @@
 Package: abjMaps
 Title: Organizing Data To Create Jurimetric Maps
-Version: 0.1.9000
+Version: 0.1.9000.9000
 Date: 2017-11-26
-Authors@R: c(
-    person("Julio", "Trecenti", email = "jtrecenti@abj.org.br", role = c("aut", "cre")),
-    person("Fernando", "Correa", email = "fcorrea@abj.org.br", role = c("aut")),
-    person("ABJ", role = c("cph", "fnd"))
-  )
+Authors@R: c(person(given = "Julio",
+             family = "Trecenti",
+             role = c("aut", "cre"),
+             email = "julio.trecenti@gmail.com",
+             comment = c(ORCID = "0000-0002-1680-6389")),
+      person(given = "Fernando",
+             family = "Correa",
+             role = "aut",
+             email = "fcorrea@abj.org.br"),       
+      person(given = "Katerine",
+             family = "Witkoski",
+             role = c("ctb"),
+             email = "kwitkoski@abj.org.br",
+             comment = c(ORCID = "0000-0002-3691-6569")),
+      person(given = "Associação Brasileira de Jurimetria",    
+             role = c("cph", "fnd"))) 
 Description: Includes code to download all necessary data to create objects 
     and plot maps for jurimetric analysis.
 Depends: R (>= 3.4.0)
