@@ -4,12 +4,14 @@
 \name{d_sf_tjrs}
 \alias{d_sf_tjrs}
 \title{Shapefile for jurimetric data}
-\format{A data frame with 4 rows and 2 variables:
+\format{
+A data frame with 4 rows and 2 variables:
 \describe{
   \item{nivel}{level of data (municipality, comarca)}
   \item{sf}{simple feature complex data}
   ...
-}}
+}
+}
 \source{
 \url{http://www.tjrs.jus.br/institu/comarcas/}
 }

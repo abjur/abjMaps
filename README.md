@@ -1,46 +1,57 @@
 
-[![Travis-CI Build Status](https://travis-ci.org/abjur/abjMaps.svg?branch=master)](https://travis-ci.org/abjur/abjMaps)
+<!-- badges: start -->
 
-abjMaps
-=======
+[![R build
+status](https://github.com/abjur/abjMaps/workflows/R-CMD-check/badge.svg)](https://github.com/abjur/abjMaps/actions)
+<!-- badges: end -->
 
-The goal of abjMaps is to make beautiful jurimetrics maps using simple features (`sf` package).
+# abjMaps <a href='http://abjur.github.io/abjutils/'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
 
-Actually, only Tribunal de Justiça de São Paulo is implemented. Look at the `data-raw/comarcas_tjsp.R` file do see how we organized the data.
+## Visão Geral
 
-Installation
-------------
+O objetivo do `{abjMaps}` é possibilitar a criação de belos mapas
+jurimétricos utilizando-se de recursos do pacote `sf` (contém modelos
+de armazenamento e acesso de características geográficas.)
 
-You can install abjMaps from github with:
+Para enriquecer a análise, são incluídos dados relativos aos estados,
+municípios e comarcas do Brasil.
+
+Veja o arquivo `data-raw/comarcas_tjsp.R` para ver como organizamos
+nossos dados.
+
+## Para Instalar
+
+Você pode instalar a versão mais recente do `{abjMaps}` com:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("abjur/abjMaps")
 ```
 
-Example
--------
+## Como Usar
 
-TJSP:
+Para ilustrar, segue-se exemplos de uso:
+
+Tribunal de Justiça de São Paulo:
 
 ``` r
 library(abjMaps)
 library(tidyverse)
-#> ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 2.2.1.9000     ✔ purrr   0.2.5     
-#> ✔ tibble  1.4.2          ✔ dplyr   0.7.6     
-#> ✔ tidyr   0.8.1          ✔ stringr 1.3.1     
-#> ✔ readr   1.1.1          ✔ forcats 0.3.0
-#> ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+#> ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
+#> ✓ tibble  3.0.4     ✓ dplyr   1.0.2
+#> ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+#> ✓ readr   1.4.0     ✓ forcats 0.5.0
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
 d_sf
 #> # A tibble: 4 x 2
-#>   nivel         sf                
-#>   <chr>         <list>            
-#> 1 municipio     <sf [645 × 12]>   
-#> 2 comarca       <tibble [319 × 3]>
-#> 3 circunscricao <tibble [57 × 2]> 
+#>   nivel         sf                  
+#>   <chr>         <named list>        
+#> 1 municipio     <sf[,12] [645 × 12]>
+#> 2 comarca       <tibble [319 × 3]>  
+#> 3 circunscricao <tibble [57 × 2]>   
 #> 4 regiao        <tibble [10 × 2]>
 ```
 
@@ -54,9 +65,9 @@ graphs <- purrr::pmap(d_sf, ~{
 gridExtra::grid.arrange(grobs = graphs)
 ```
 
-![](README-fig-tjsp-1.png)
+![](README-fig-tjsp-1.png)<!-- -->
 
-TJRS:
+Tribunal de Justiça do Rio Grande do Sul:
 
 ``` r
 graphs <- purrr::pmap(d_sf_tjrs, ~{
@@ -65,23 +76,32 @@ graphs <- purrr::pmap(d_sf_tjrs, ~{
     ggtitle(..1) +     
     theme_minimal() 
 })
-gridExtra::grid.arrange(grobs = graphs, ncol = 1)
+gridExtra::grid.arrange(grobs = graphs, nrow = 1)
 ```
 
-![](README-fig-tjrs-1.png)
+![](README-fig-tjrs-1.png)<!-- -->
 
-Citation
---------
+## Requisitos
+
+`{abjMaps}` requer uma versão do R superior ou igual a 3.4.0
+
+## Licença
+
+O sistema de gerenciamento de conteúdo `{abjMaps}` é licenciado sob os
+termos da [MIT + file
+LICENSE](https://github.com/abjur/abjMaps/blob/master/LICENSE)
+
+#### Citation
 
 To cite `abjMaps`, write `citation("abjMaps")`:
 
     To cite package ‘abjMaps’ in publications use:
-
+    
       Julio Trecenti and Fernando Correa (2017). abjMaps: Organizing Data To Create
       Jurimetric Maps. R package version 0.1.9000.
-
+    
     A BibTeX entry for LaTeX users is
-
+    
       @Manual{,
         title = {abjMaps: Organizing Data To Create Jurimetric Maps},
         author = {Julio Trecenti and Fernando Correa},

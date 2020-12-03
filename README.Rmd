@@ -12,19 +12,26 @@ knitr::opts_chunk$set(
 ```
 <!-- badges: start -->
 
+[![R build status](https://github.com/abjur/abjMaps/workflows/R-CMD-check/badge.svg)](https://github.com/abjur/abjMaps/actions)
 <!-- badges: end -->
 
-# abjMaps
+# abjMaps  <a href='http://abjur.github.io/abjutils/'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
 
 ## Visão Geral 
 
-The goal of abjMaps is to make beautiful jurimetrics maps using simple features (`sf` package). 
+O objetivo do `{abjMaps}` é possibilitar a criação de belos mapas jurimétricos 
+utilizando-se de recursos do pacote `sf` (contém modelos de armazenamento e acesso 
+de características geográficas.) 
 
-Actually, only Tribunal de Justiça de São Paulo is implemented. Look at the `data-raw/comarcas_tjsp.R` file do see how we organized the data.
+Para enriquecer a análise, são incluídos dados relativos aos estados, municípios 
+e comarcas do Brasil. 
+
+Veja o arquivo `data-raw/comarcas_tjsp.R` para ver como organizamos nossos dados. 
+
 
 ## Para Instalar
 
-You can install abjMaps from github with:
+Você pode instalar a versão mais recente do `{abjMaps}` com: 
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
@@ -33,7 +40,10 @@ devtools::install_github("abjur/abjMaps")
 
 ## Como Usar 
 
-TJSP:
+Para ilustrar, segue-se exemplos de uso: 
+
+
+Tribunal de Justiça de São Paulo:
 
 ```{r example}
 library(abjMaps)
@@ -51,7 +61,8 @@ graphs <- purrr::pmap(d_sf, ~{
 gridExtra::grid.arrange(grobs = graphs)
 ```
 
-TJRS:
+
+Tribunal de Justiça do Rio Grande do Sul:
 
 ```{r fig-tjrs}
 graphs <- purrr::pmap(d_sf_tjrs, ~{
