@@ -132,9 +132,8 @@
     <span class="fu">ggtitle</span><span class="op">(</span><span class="va">..1</span><span class="op">)</span> <span class="op">+</span>     
     <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> 
 <span class="op">}</span><span class="op">)</span>
-<span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">graphs</span><span class="op">)</span></pre></div>
-<p><img src="README-fig-tjsp-1.png"><!-- --></p>
-<p>Tribunal de Justiça do Rio Grande do Sul:</p>
+ <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a></span><span class="op">(</span><span class="va">graphs</span><span class="op">)</span></pre></div>
+<p><img src="README-fig-tjsp-1.png"><!-- --> Tribunal de Justiça do Rio Grande do Sul:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="va">graphs</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap</a></span><span class="op">(</span><span class="va">d_sf_tjrs</span>, <span class="op">~</span><span class="op">{</span>
   <span class="fu">ggplot</span><span class="op">(</span><span class="va">..2</span><span class="op">)</span> <span class="op">+</span>        
@@ -142,7 +141,7 @@
     <span class="fu">ggtitle</span><span class="op">(</span><span class="va">..1</span><span class="op">)</span> <span class="op">+</span>     
     <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> 
 <span class="op">}</span><span class="op">)</span>
-<span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">graphs</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></pre></div>
+ <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a></span><span class="op">(</span><span class="va">graphs</span><span class="op">)</span></pre></div>
 <p><img src="README-fig-tjrs-1.png"><!-- --></p>
 </div>
 <div id="requisitos" class="section level2">

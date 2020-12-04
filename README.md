@@ -62,12 +62,11 @@ graphs <- purrr::pmap(d_sf, ~{
     ggtitle(..1) +     
     theme_minimal() 
 })
-gridExtra::grid.arrange(grobs = graphs)
+ patchwork::wrap_plots(graphs)
 ```
 
-![](README-fig-tjsp-1.png)<!-- -->
-
-Tribunal de Justiça do Rio Grande do Sul:
+![](README-fig-tjsp-1.png)<!-- --> Tribunal de Justiça do Rio Grande do
+Sul:
 
 ``` r
 graphs <- purrr::pmap(d_sf_tjrs, ~{
@@ -76,7 +75,7 @@ graphs <- purrr::pmap(d_sf_tjrs, ~{
     ggtitle(..1) +     
     theme_minimal() 
 })
-gridExtra::grid.arrange(grobs = graphs, nrow = 1)
+ patchwork::wrap_plots(graphs)
 ```
 
 ![](README-fig-tjrs-1.png)<!-- -->
