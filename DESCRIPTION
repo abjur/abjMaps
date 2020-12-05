@@ -23,8 +23,7 @@ LazyData: true
 RoxygenNote: 7.1.1
 BugReports: https://github.com/abjur/abjMaps/issues
 Remotes:
-    abjur/abjData,
-    abjur/abjutils
+    abjur/abjData
 Imports: magrittr,
     janitor,
     sf,

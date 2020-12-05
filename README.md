@@ -51,7 +51,7 @@ d_sf_tjrs
 #> # A tibble: 2 x 2
 #>   nivel     sf                
 #>   <chr>     <named list>      
-#> 1 municipio <sf[,8] [497 × 8]>
+#> 1 municipio <tibble [497 × 8]>
 #> 2 comarca   <tibble [165 × 3]>
 ```
 
