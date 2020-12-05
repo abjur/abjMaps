@@ -1,8 +1,8 @@
 tjsp_get_all_muni <- function() {
   u_muni <- "http://www.tjsp.jus.br/AutoComplete/ListarMunicipios"
-  abjData::dados_muni %>%
-    dplyr::filter(uf == "SP") %>%
-    dplyr::pull(municipio) %>%
+  abjData::muni %>%
+    dplyr::filter(uf_sigla == "SP") %>%
+    dplyr::pull(muni_nm) %>%
     stringr::str_to_upper() %>%
     abjutils::rm_accent() %>%
     stringr::str_replace_all("'", " ") %>%
