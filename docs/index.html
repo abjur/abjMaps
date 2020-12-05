@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">abjMaps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -84,18 +84,18 @@
 
 <div id="abjmaps-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#abjmaps-" class="anchor"></a>abjMaps <a href="http://abjur.github.io/abjutils/"><img src="reference/figures/logo.png" align="right" height="138.5"></a>
+<a href="#abjmaps-" class="anchor"></a>abjMaps <a href="http://abjur.github.io/abjMaps/"><img src="reference/figures/logo.png" align="right" height="138.5"></a>
 </h1></div>
 <div id="visão-geral" class="section level2">
 <h2 class="hasAnchor">
-<a href="#vis%C3%A3o-geral" class="anchor"></a>Visão Geral</h2>
-<p>O objetivo do <code>{abjMaps}</code> é possibilitar a criação de belos mapas jurimétricos utilizando-se de recursos do pacote <code>sf</code> (contém modelos de armazenamento e acesso de características geográficas.)</p>
-<p>Para enriquecer a análise, são incluídos dados relativos aos estados, municípios e comarcas do Brasil.</p>
+<a href="#vis%C3%A3o-geral" class="anchor"></a>Visão geral</h2>
+<p>O objetivo do <code>{abjMaps}</code> é possibilitar a criação de mapas jurimétricos utilizando-se de recursos do pacote <code>sf</code> (contém ferramentas para armazenamento e acesso de características geográficas).</p>
+<p>Para enriquecer a análise, são incluídos dados relativos aos estados, municípios e comarcas do Brasil. Até o momento, estão implementadas as bases para o TJSP e o TJRS.</p>
 <p>Veja o arquivo <code>data-raw/comarcas_tjsp.R</code> para ver como organizamos nossos dados.</p>
 </div>
 <div id="para-instalar" class="section level2">
 <h2 class="hasAnchor">
-<a href="#para-instalar" class="anchor"></a>Para Instalar</h2>
+<a href="#para-instalar" class="anchor"></a>Para instalar</h2>
 <p>Você pode instalar a versão mais recente do <code>{abjMaps}</code> com:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co"># install.packages("devtools")</span>
@@ -103,20 +103,13 @@
 </div>
 <div id="como-usar" class="section level2">
 <h2 class="hasAnchor">
-<a href="#como-usar" class="anchor"></a>Como Usar</h2>
+<a href="#como-usar" class="anchor"></a>Como usar</h2>
 <p>Para ilustrar, segue-se exemplos de uso:</p>
 <p>Tribunal de Justiça de São Paulo:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">abjMaps</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</span>
-<span class="co">#&gt; ✓ ggplot2 3.3.2     ✓ purrr   0.3.4</span>
-<span class="co">#&gt; ✓ tibble  3.0.4     ✓ dplyr   1.0.2</span>
-<span class="co">#&gt; ✓ tidyr   1.1.2     ✓ stringr 1.4.0</span>
-<span class="co">#&gt; ✓ readr   1.4.0     ✓ forcats 0.5.0</span>
-<span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span>
-<span class="co">#&gt; x dplyr::filter() masks stats::filter()</span>
-<span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
+<span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.2</span>
 <span class="va">d_sf</span>
 <span class="co">#&gt; # A tibble: 4 x 2</span>
 <span class="co">#&gt;   nivel         sf                  </span>
@@ -127,35 +120,44 @@
 <span class="co">#&gt; 4 regiao        &lt;tibble [10 × 2]&gt;</span></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="va">graphs</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap</a></span><span class="op">(</span><span class="va">d_sf</span>, <span class="op">~</span><span class="op">{</span>
-  <span class="fu">ggplot</span><span class="op">(</span><span class="va">..2</span><span class="op">)</span> <span class="op">+</span>        
-    <span class="fu">geom_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>       
-    <span class="fu">ggtitle</span><span class="op">(</span><span class="va">..1</span><span class="op">)</span> <span class="op">+</span>     
-    <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> 
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">..2</span><span class="op">)</span> <span class="op">+</span>        
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>
+      colour <span class="op">=</span> <span class="st">"black"</span>,
+      size <span class="op">=</span> <span class="fl">.2</span>
+    <span class="op">)</span> <span class="op">+</span>       
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="va">..1</span><span class="op">)</span> <span class="op">+</span>     
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> 
 <span class="op">}</span><span class="op">)</span>
- <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a></span><span class="op">(</span><span class="va">graphs</span><span class="op">)</span></pre></div>
-<p><img src="README-fig-tjsp-1.png"><!-- --> Tribunal de Justiça do Rio Grande do Sul:</p>
+<span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a></span><span class="op">(</span><span class="va">graphs</span><span class="op">)</span></pre></div>
+<p><img src="reference/figures/README-fig-tjsp-1.png"><!-- --></p>
+<p>Tribunal de Justiça do Rio Grande do Sul:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="va">graphs</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap</a></span><span class="op">(</span><span class="va">d_sf_tjrs</span>, <span class="op">~</span><span class="op">{</span>
-  <span class="fu">ggplot</span><span class="op">(</span><span class="va">..2</span><span class="op">)</span> <span class="op">+</span>        
-    <span class="fu">geom_sf</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">entrancia</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>       
-    <span class="fu">ggtitle</span><span class="op">(</span><span class="va">..1</span><span class="op">)</span> <span class="op">+</span>     
-    <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> 
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">..2</span><span class="op">)</span> <span class="op">+</span>        
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>
+      <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">entrancia</span><span class="op">)</span>,
+      colour <span class="op">=</span> <span class="st">"black"</span>,
+      size <span class="op">=</span> <span class="fl">.2</span>
+    <span class="op">)</span> <span class="op">+</span>       
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_d</a></span><span class="op">(</span>begin <span class="op">=</span> <span class="fl">.2</span>, end <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="va">..1</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> 
 <span class="op">}</span><span class="op">)</span>
- <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a></span><span class="op">(</span><span class="va">graphs</span><span class="op">)</span></pre></div>
-<p><img src="README-fig-tjrs-1.png"><!-- --></p>
+<span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a></span><span class="op">(</span><span class="va">graphs</span><span class="op">)</span></pre></div>
+<p><img src="reference/figures/README-fig-tjrs-1.png"><!-- --></p>
 </div>
 <div id="requisitos" class="section level2">
 <h2 class="hasAnchor">
 <a href="#requisitos" class="anchor"></a>Requisitos</h2>
-<p><code>{abjMaps}</code> requer uma versão do R superior ou igual a 3.4.0</p>
+<p><code>{abjMaps}</code> requer uma versão do R superior ou igual a 3.4.0.</p>
 </div>
 <div id="licença" class="section level2">
 <h2 class="hasAnchor">
 <a href="#licen%C3%A7a" class="anchor"></a>Licença</h2>
-<p>O sistema de gerenciamento de conteúdo <code>{abjMaps}</code> é licenciado sob os termos da <a href="https://github.com/abjur/abjMaps/blob/master/LICENSE">MIT + file LICENSE</a></p>
-<div id="citation" class="section level4">
-<h4 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h4>
+<p>O <code>{abjMaps}</code> é licenciado sob os termos da <a href="https://github.com/abjur/abjMaps/blob/master/LICENSE">MIT</a></p>
+<div id="citation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h3>
 <p>To cite <code>abjMaps</code>, write <code><a href="https://rdrr.io/r/utils/citation.html">citation("abjMaps")</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>To cite package ‘abjMaps’ <span class="cf">in</span> publications use<span class="sc">:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
