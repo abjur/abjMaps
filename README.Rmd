@@ -30,8 +30,8 @@ Veja o arquivo `data-raw/comarcas_tjsp.R` para ver como organizamos nossos dados
 Você pode instalar a versão mais recente do `{abjMaps}` com: 
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("abjur/abjMaps")
+# install.packages("remotes")
+remotes::install_github("abjur/abjMaps")
 ```
 
 ## Como usar 
@@ -43,17 +43,18 @@ Tribunal de Justiça de São Paulo:
 ```{r example}
 library(abjMaps)
 library(sf)
-d_sf
+d_sf_tjsp
+d_sf_tjrs
 ```
 
 ```{r fig-tjsp}
-graphs <- purrr::pmap(d_sf, ~{
-  ggplot2::ggplot(..2) +        
+graphs <- purrr::imap(d_sf_tjsp$sf, ~{
+  ggplot2::ggplot(.x) +        
     ggplot2::geom_sf(
       colour = "black",
       size = .2
     ) +       
-    ggplot2::ggtitle(..1) +     
+    ggplot2::ggtitle(.y) +     
     ggplot2::theme_void() 
 })
 patchwork::wrap_plots(graphs)
@@ -64,15 +65,15 @@ patchwork::wrap_plots(graphs)
 Tribunal de Justiça do Rio Grande do Sul:
 
 ```{r fig-tjrs}
-graphs <- purrr::pmap(d_sf_tjrs, ~{
-  ggplot2::ggplot(..2) +        
+graphs <- purrr::imap(d_sf_tjrs$sf, ~{
+  ggplot2::ggplot(.x) +        
     ggplot2::geom_sf(
       ggplot2::aes(fill = entrancia),
       colour = "black",
       size = .2
     ) +       
     ggplot2::scale_fill_viridis_d(begin = .2, end = .8) +
-    ggplot2::ggtitle(..1) +
+    ggplot2::ggtitle(.y) +
     ggplot2::theme_void() 
 })
 patchwork::wrap_plots(graphs)
@@ -90,19 +91,8 @@ O `{abjMaps}` é licenciado sob os termos da [MIT](https://github.com/abjur/abjM
 
 To cite `abjMaps`, write `citation("abjMaps")`:
 
+```{r cite}
+citation("abjMaps")
 ```
-To cite package ‘abjMaps’ in publications use:
 
-  Julio Trecenti and Fernando Correa (2017). abjMaps: Organizing Data To Create
-  Jurimetric Maps. R package version 0.1.9000.
-
-A BibTeX entry for LaTeX users is
-
-  @Manual{,
-    title = {abjMaps: Organizing Data To Create Jurimetric Maps},
-    author = {Julio Trecenti and Fernando Correa},
-    year = {2017},
-    note = {R package version 0.1.9000},
-  }
-```
 

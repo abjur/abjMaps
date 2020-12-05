@@ -1,6 +1,7 @@
 Package: abjMaps
 Title: Organizing Data To Create Jurimetric Maps
 Version: 0.2.0
+Date: 2020-12-04
 Authors@R: c(person(given = "Julio",
              family = "Trecenti",
              role = c("aut", "cre"),
