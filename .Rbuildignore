@@ -5,3 +5,7 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^shp$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

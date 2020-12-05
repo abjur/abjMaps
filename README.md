@@ -1,77 +1,98 @@
 
-[![Travis-CI Build Status](https://travis-ci.org/abjur/abjMaps.svg?branch=master)](https://travis-ci.org/abjur/abjMaps)
+<!-- badges: start -->
 
-abjMaps
-=======
+[![R build
+status](https://github.com/abjur/abjMaps/workflows/R-CMD-check/badge.svg)](https://github.com/abjur/abjMaps/actions)
+<!-- badges: end -->
 
-The goal of abjMaps is to make beautiful jurimetrics maps using simple features (`sf` package).
+# abjMaps <a href='http://abjur.github.io/abjMaps/'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
 
-Actually, only Tribunal de Justiça de São Paulo is implemented. Look at the `data-raw/comarcas_tjsp.R` file do see how we organized the data.
+## Visão geral
 
-Installation
-------------
+O objetivo do `{abjMaps}` é possibilitar a criação de mapas jurimétricos
+utilizando-se de recursos do pacote `sf` (contém ferramentas para
+armazenamento e acesso de características geográficas).
 
-You can install abjMaps from github with:
+Para enriquecer a análise, são incluídos dados relativos aos estados,
+municípios e comarcas do Brasil. Até o momento, estão implementadas as
+bases para o TJSP e o TJRS.
+
+Veja o arquivo `data-raw/comarcas_tjsp.R` para ver como organizamos
+nossos dados.
+
+## Para instalar
+
+Você pode instalar a versão mais recente do `{abjMaps}` com:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("abjur/abjMaps")
 ```
 
-Example
--------
+## Como usar
 
-TJSP:
+Para ilustrar, segue-se exemplos de uso:
+
+Tribunal de Justiça de São Paulo:
 
 ``` r
 library(abjMaps)
-library(tidyverse)
-#> ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 2.2.1.9000     ✔ purrr   0.2.5     
-#> ✔ tibble  1.4.2          ✔ dplyr   0.7.6     
-#> ✔ tidyr   0.8.1          ✔ stringr 1.3.1     
-#> ✔ readr   1.1.1          ✔ forcats 0.3.0
-#> ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+library(sf)
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.2
 d_sf
 #> # A tibble: 4 x 2
-#>   nivel         sf                
-#>   <chr>         <list>            
-#> 1 municipio     <sf [645 × 12]>   
-#> 2 comarca       <tibble [319 × 3]>
-#> 3 circunscricao <tibble [57 × 2]> 
+#>   nivel         sf                  
+#>   <chr>         <named list>        
+#> 1 municipio     <sf[,12] [645 × 12]>
+#> 2 comarca       <tibble [319 × 3]>  
+#> 3 circunscricao <tibble [57 × 2]>   
 #> 4 regiao        <tibble [10 × 2]>
 ```
 
 ``` r
 graphs <- purrr::pmap(d_sf, ~{
-  ggplot(..2) +        
-    geom_sf() +       
-    ggtitle(..1) +     
-    theme_minimal() 
+  ggplot2::ggplot(..2) +        
+    ggplot2::geom_sf(
+      colour = "black",
+      size = .2
+    ) +       
+    ggplot2::ggtitle(..1) +     
+    ggplot2::theme_void() 
 })
-gridExtra::grid.arrange(grobs = graphs)
+patchwork::wrap_plots(graphs)
 ```
 
-![](README-fig-tjsp-1.png)
+![](man/figures/README-fig-tjsp-1.png)<!-- -->
 
-TJRS:
+Tribunal de Justiça do Rio Grande do Sul:
 
 ``` r
 graphs <- purrr::pmap(d_sf_tjrs, ~{
-  ggplot(..2) +        
-    geom_sf(aes(fill = entrancia)) +       
-    ggtitle(..1) +     
-    theme_minimal() 
+  ggplot2::ggplot(..2) +        
+    ggplot2::geom_sf(
+      ggplot2::aes(fill = entrancia),
+      colour = "black",
+      size = .2
+    ) +       
+    ggplot2::scale_fill_viridis_d(begin = .2, end = .8) +
+    ggplot2::ggtitle(..1) +
+    ggplot2::theme_void() 
 })
-gridExtra::grid.arrange(grobs = graphs, ncol = 1)
+patchwork::wrap_plots(graphs)
 ```
 
-![](README-fig-tjrs-1.png)
+![](man/figures/README-fig-tjrs-1.png)<!-- -->
 
-Citation
---------
+## Requisitos
+
+`{abjMaps}` requer uma versão do R superior ou igual a 3.4.0.
+
+## Licença
+
+O `{abjMaps}` é licenciado sob os termos da
+[MIT](https://github.com/abjur/abjMaps/blob/master/LICENSE)
+
+### Citation
 
 To cite `abjMaps`, write `citation("abjMaps")`:
 

@@ -32,7 +32,7 @@ tjrs_muni <- function(cod, verbose = FALSE) {
 
 tjrs_comarca_muni <- function() {
   tjrs_comarcas() %>%
-    dplyr::mutate(data = abjutils::pvec(cod, tjrs_muni)$output) %>%
+    dplyr::mutate(data = purrr::map(cod, tjrs_muni)) %>%
     tidyr::unnest(data) %>%
     dplyr::mutate(
       municipio = toupper(municipio),

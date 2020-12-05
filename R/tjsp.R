@@ -1,11 +1,4 @@
-#' Downloads all municipalities
-#'
-#' Downloads all municipalities from Lista Telefonica data - TJSP
-#'
-#' @return \code{character} vector with all 645 cleaned municipalities
-#'
-#' @export
-get_all_muni <- function() {
+tjsp_get_all_muni <- function() {
   u_muni <- "http://www.tjsp.jus.br/AutoComplete/ListarMunicipios"
   abjData::dados_muni %>%
     dplyr::filter(uf == "SP") %>%
@@ -24,15 +17,8 @@ get_all_muni <- function() {
     c("SAO", "SANTA")
 }
 
-#' Downloads the codes for all the municipalities
-#'
-#' Downloads all municipalities codes from Lista Telefonica data - TJSP
-#'
-#' @return \code{character} vector with all 645 cleaned municipalities
-#'
-#' @export
-get_muni_codes <- function() {
-  all_muni <- get_all_muni()
+tjsp_get_muni_codes <- function() {
+  all_muni <- tjsp_get_all_muni()
   u_muni <- "http://www.tjsp.jus.br/AutoComplete/ListarMunicipios"
   all_muni %>%
     purrr::map_dfr(~{
@@ -45,17 +31,7 @@ get_muni_codes <- function() {
     dplyr::distinct(codigo, .keep_all = TRUE)
 }
 
-#' Gets comarca text
-#'
-#' Gets comarca text from municipality code to tell whether the municipality is
-#' a comarca or just a part of the comarca.
-#'
-#' @param cod_municipio code
-#'
-#' @return returns a phrase if it is a municipality and "comarca" if it is a comarca
-#'
-#' @export
-get_comarca_text <- function(cod_municipio) {
+tjsp_get_comarca_text <- function(cod_municipio) {
   u_resultado <- "http://www.tjsp.jus.br/ListaTelefonica/RetornarResultadoBusca"
   purrr::map_chr(cod_municipio, ~{
     bd <- list(parmsEntrada = .x, codigoTipoBusca = "1")
@@ -68,16 +44,7 @@ get_comarca_text <- function(cod_municipio) {
   })
 }
 
-#' Cleans comarca names
-#'
-#' Cleans comarca names from \code{get_comarca_text} function.
-#'
-#' @param muni_com_comarca_raw object returned from \code{get_comarca_text} fun
-#'
-#' @return data frame
-#'
-#' @export
-clean_comarcas_names <- function(muni_com_comarca_raw) {
+tjsp_clean_comarcas_names <- function(muni_com_comarca_raw) {
   muni_com_comarca_raw %>%
     dplyr::mutate(
       tipo = dplyr::if_else(txt_comarca == "comarca", "comarca", "municipio"),
@@ -185,7 +152,7 @@ tidy_imoveis <- function(imoveis_raw) {
       purrr::set_names(sprintf("%010d", seq_along(.))) %>%
       dplyr::bind_rows(.id = ".id") %>%
       dplyr::group_by(.id, key) %>%
-      dplyr::summarise(val = glue::collapse(val, sep = "\n")) %>%
+      dplyr::summarise(val = paste(val, collapse = "\n")) %>%
       dplyr::ungroup() %>%
       tidyr::spread(key, val) %>%
       purrr::set_names(abjutils::rm_accent) %>%
