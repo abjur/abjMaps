@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shapefile for jurimetric data — d_sf_tjrs • abjMaps</title>
+<title>Shapefile TJRS — d_sf_tjrs • abjMaps</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Shapefile for jurimetric data — d_sf_tjrs" />
-<meta property="og:description" content="A dataset containing shapefiles for municipalities and comarcas," />
+<meta property="og:title" content="Shapefile TJRS — d_sf_tjrs" />
+<meta property="og:description" content="Base contendo os shapefiles de municipios e comarcas do TJRS." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -126,13 +126,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Shapefile for jurimetric data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/abjur/abjMaps/blob/master/R/d_sf.R'><code>R/d_sf.R</code></a></small>
+    <h1>Shapefile TJRS</h1>
+    <small class="dont-index">Source: <a href='https://github.com/abjur/abjMaps/blob/master/R/utils-data.R'><code>R/utils-data.R</code></a></small>
     <div class="hidden name"><code>d_sf_tjrs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A dataset containing shapefiles for municipalities and comarcas,</p>
+    <p>Base contendo os shapefiles de municipios e comarcas do TJRS.</p>
     </div>
 
     <pre class="usage"><span class='va'>d_sf_tjrs</span></pre>
@@ -140,10 +140,9 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 4 rows and 2 variables:</p><dl>
-  <dt>nivel</dt><dd><p>level of data (municipality, comarca)</p></dd>
-  <dt>sf</dt><dd><p>simple feature complex data</p></dd>
-  ...
+    <p>A data frame with 2 rows and 2 variables:</p><dl>
+  <dt>nivel</dt><dd><p>nivel da regiao (municipio, comarca)</p></dd>
+  <dt>sf</dt><dd><p>shape, num objeto do tipo simple feature</p></dd>
 
 </dl>
 

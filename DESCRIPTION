@@ -1,7 +1,6 @@
 Package: abjMaps
 Title: Organizing Data To Create Jurimetric Maps
 Version: 0.2.0
-Date: 2017-11-26
 Authors@R: c(person(given = "Julio",
              family = "Trecenti",
              role = c("aut", "cre"),
@@ -26,15 +25,12 @@ Remotes:
     abjur/abjData,
     abjur/abjutils
 Imports: magrittr,
-    tidyverse,
     janitor,
     sf,
     rvest,
-    progress,
     abjutils,
     abjData,
     dplyr,
-    glue,
     purrr,
     httr,
     stringr,
