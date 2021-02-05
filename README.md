@@ -38,7 +38,7 @@ Tribunal de Justiça de São Paulo:
 ``` r
 library(abjMaps)
 library(sf)
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.2
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
 d_sf_tjsp
 #> # A tibble: 4 x 2
 #>   nivel         sf                 
